@@ -1,0 +1,99 @@
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+          <table class="table table-striped table-sm">
+            <thead>
+              <tr>
+                <th scope="col">Customer ID</th>
+                <th scope="col">Name</th>
+                <th scope="col">Email</th>
+                <th scope="col">#Sel</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let customer of customerList; let ind = index">
+                <th scope="row">{{customer.customerId}}</th>
+                <td>{{customer.name}}</td>
+                <td>{{customer.email}}</td>
+                <td>
+                  <button type="button" class="btn btn-sm btn-outline-secondary" data-dismiss="modal"
+                      (click)="selectCustomerToFindSearchEvent($event, ind)">
+                    <i class="fas fa-check"></i></button>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- Page Information -->
+<div class="col-md-12">
+  <div class="mb-3">
+    <h3>Listar Ordenes</h3>
+  </div>
+  <div class="card">
+    <div class="card-header"><i class="fas fa-align-justify"></i> Consultar Ordenes</div>
+    <div class="card-body">
+      <form>
+        <div class="form-group row">
+          <label for="inputCliente" class="col-auto col-form-label">Cliente</label>
+          <div class="col-sm-4">
+            <input type="text" class="form-control" id="inputCliente" placeholder="Nombre Cliente" value="{{customerName}}">
+          </div>
+          <div class="col-auto">
+            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">Seleccionar</button>
+          </div>
+        </div>
+        <div class="form-group row">
+            <label for="inputDateStart" class="col-auto col-form-label">Periodo</label>
+            <div class="col-auto">
+                <input type="date" class="form-control" id="inputDateStart" pattern="dd/mm/yyyy" [(ngModel)]="startDate" name="startDate">
+            </div>
+            <div class="col-auto">
+                <input type="date" class="form-control" id="inputDateEnd" placeholder="dd/mm/yyyy" [(ngModel)]="endDate" name="endDate">
+            </div>
+            <div class="col-auto">
+              <button type="button" class="btn btn-primary" (click)="findCustomerByDate()"><i class="fas fa-search-plus"></i> Buscar</button>
+            </div>
+        </div>
+      </form>
+      <div class="form-row mt-5 mb-2">
+        <div class="table-responsive mt-2">
+            <table class="table table-striped table-sm border-bottom">
+              <thead>
+                <tr>
+                  <th scope="col">Creation Date</th>
+                  <th scope="col">Order ID</th>
+                  <th scope="col">Total $</th>
+                  <th scope="col">Delivery Address</th>
+                  <th scope="col">Products</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let order of orderList">
+                  <th>{{order.creationDate | date: 'yyyy-MM-dd'}}</th>
+                  <td>{{order.orderId}}</td>
+                  <td>{{order.total | currency}}</td>
+                  <td>{{order.deliveryAddress}}</td>
+                  <td>{{order.products}}</td>
+                </tr>
+              </tbody>
+            </table>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="col-md-12 mb-2"></div>
+</div>
